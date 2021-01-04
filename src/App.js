@@ -1,51 +1,96 @@
-import React, { Component } from 'react';
-import {BrowserRouter as Router, Switch,Route} from 'react-router-dom';
-import {Home} from './components/Home'
-import {ProductsContextProvider} from './global/ProductContext';
-import { Signup } from './components/Signup';
-import {Login} from './components/Login';
-import {auth,db} from './config/config';
-import { CartContextProvider } from './global/CartContext';
-import { Cart } from './components/Cart';
+import React, { Component } from "react";
+import { Router, Switch, Route } from "react-router-dom";
+import { createBrowserHistory } from "history";
 
+import { ProductsContextProvider } from "./global/ProductContext";
+
+import { auth, db } from "./config/config";
+import { CartContextProvider } from "./global/CartContext";
+// import { Home } from "./components/Home";
+import { Cart } from "./components/Cart";
+import { CheckOut } from "./components/CheckOut";
+import { NotFound } from "./components/NotFound";
+import { Products } from "./components/Products";
+import AddProducts from "./components/AddProducts";
+import { Navbar } from "./components/Navbar";
+import { Signup } from "./components/Signup";
+import { Login } from "./components/Login";
+
+import "./css/Home.css";
+
+const history = createBrowserHistory();
 
 class App extends Component {
-  state={
-    user:null
-  }
-  componentDidMount(){
-    auth.onAuthStateChanged(user=>{
-      if(user){
-        db.collection('SignedUpUsersData').doc(user.uid).get().then(snapshot=>{
-          this.setState({
-            user:snapshot.data().Name
-          })
-        })
-      }
-      else{
+  state = {
+    user: null,
+  };
+
+  componentDidMount() {
+    auth.onAuthStateChanged((user) => {
+      if (user && (history.location.pathname === "/products" || history.location.pathname === "/checkout" ||history.location.pathname === "/cartproducts")) {
+        db.collection("SignedUpUsersData")
+          .doc(user.uid)
+          .get()
+          .then((snapshot) => {
+            this.setState({
+              user: snapshot.data().Name,
+            });
+          });
+      } else {
         this.setState({
-          user:null
-        })
+          user: null,
+        });
       }
-    })
+    });
   }
   render() {
     return (
       <ProductsContextProvider>
         <CartContextProvider>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={()=><Home user={this.state.user}/>} />
-          <Route path="/signup" component={Signup}/>
-          <Route path="/login" component={Login}/>
-          <Route path="/cartproducts" component={()=><Cart user={this.state.user}/>}/>
-        </Switch>
-      </Router>
-      </CartContextProvider>
+          <Router history={history} forceRefresh={true}>
+            <Navbar user={this.state.user} history={history} />
+
+            <Switch>
+              <Route
+                exact
+                path="/"
+                component={() => <Signup history={history} />}
+              />
+              <Route
+                path="/login"
+                component={() => <Login history={history} />}
+              />
+              <Route
+                path="/cartproducts"
+                component={() => (
+                  <Cart user={this.state.user} history={history} />
+                )}
+              />
+              <Route
+                path="/checkout"
+                component={() => (
+                  <CheckOut user={this.state.user} history={history} />
+                )}
+              />
+              <Route
+                exact
+                path="/products"
+                component={() => (
+                  <Products user={this.state.user} history={history} />
+                )}
+              />
+              <Route
+                exact
+                path="/addproducts"
+                component={() => <AddProducts user={this.state.user} />}
+              />
+              <Route component={NotFound} />
+            </Switch>
+          </Router>
+        </CartContextProvider>
       </ProductsContextProvider>
-    )
+    );
   }
 }
 
-export default App
- 
+export default App;
