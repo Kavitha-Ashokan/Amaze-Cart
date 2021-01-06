@@ -30,25 +30,6 @@
   font-weight: 600;
   margin: auto 10px;
 }
-.navbox .rightside .relative {
-  position: relative;
-}
-.navbox .rightside .relative .no-of-products {
-  background: #4CAF50;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 600;
-  padding: 2px;
-  width: 14px;
-  height: 14px;
-  border-radius: 3px;
-  position: relative;
-  top: -25px;
-  right: -68px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 h1 {
   padding: 30px;
   border-bottom: 1px solid #e4e4e4;
@@ -157,11 +138,6 @@ h1 {
 .logout-btn:hover {
   background-color: green;
 }
-
-.rightside {
-  width: 100px;
-}
-
 .nav-header {
   display: flex;
 }
