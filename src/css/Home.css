@@ -119,6 +119,33 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+@media(max-width: 768px){
+  .navbox-head{
+    font-size: 20px;
+    padding: 2px 4px;
+  }
+  .logo{
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .navbox .leftside {
+    width:6px;
+  }
+  .user-name {
+    padding-right: 1px;
+    font-size: 16px;
+  }
+  .login-outer{
+    height: 95vh;
+  }
+  .products{
+    font-size: 20px !important;
+  }
+  .thank-img{
+    height: 167px;
+    margin-bottom: 70px;
+  }
+}
 .navbox-head:hover{
   font-style: italic;
 }

@@ -15,6 +15,9 @@ const AddProducts = ({ user }) => {
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
+      if (user && user.email !== "admin1@gmail.com") {
+        history.push("/login");
+      }
       if (!user) {
         history.push("/login");
       }
@@ -76,7 +79,7 @@ const AddProducts = ({ user }) => {
     );
   };
   return (
-    <div className="container">
+    <div className="container addproducts-page">
       <br />
       <h2>ADD PRODUCTS</h2>
       <hr />
@@ -105,16 +108,15 @@ const AddProducts = ({ user }) => {
         />
         <p></p>
         <br></br>
-        <TextField
+        <input
           type="file"
           label="Product Image"
-          variant="outlined"
           onChange={productImgHandler}
           id="file"
           required
           className="form-control"
         />
-        <button className="btn btn-success btn-md mybtn">ADD</button>
+        <button className="btn btn-success btn-md mybtn mt-3">ADD</button>
       </form>
       {error && <span>{error}</span>}
     </div>

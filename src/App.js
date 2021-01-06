@@ -17,6 +17,7 @@ import { Signup } from "./components/Signup";
 import { Login } from "./components/Login";
 
 import "./css/Home.css";
+import Footer from "./components/Footer";
 
 const history = createBrowserHistory();
 
@@ -27,7 +28,13 @@ class App extends Component {
 
   componentDidMount() {
     auth.onAuthStateChanged((user) => {
-      if (user && (history.location.pathname === "/products" || history.location.pathname === "/checkout" ||history.location.pathname === "/cartproducts")) {
+      if (
+        user &&
+        (history.location.pathname === "/products" ||
+          history.location.pathname === "/checkout" ||
+          history.location.pathname === "/cartproducts" ||
+          history.location.pathname === "/addproducts")
+      ) {
         db.collection("SignedUpUsersData")
           .doc(user.uid)
           .get()
@@ -86,6 +93,7 @@ class App extends Component {
               />
               <Route component={NotFound} />
             </Switch>
+            <Footer user={this.state.user} />
           </Router>
         </CartContextProvider>
       </ProductsContextProvider>
