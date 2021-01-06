@@ -1,34 +1,51 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect,useState } from "react";
 import { ProductsContext } from "../global/ProductContext";
 import { CartContext } from "../global/CartContext";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import Button from "@material-ui/core/Button";
-// import { useHistory } from "react-router-dom";
+//import SearchIcon from '@material-ui/icons/Search';
 import { auth } from "../config/config";
 
 export const Products = ({ user, history }) => {
   const { products } = useContext(ProductsContext);
+  const [searchText,setSearchText] = useState("");
+  const [displayList,setDisplayList] = useState(products);
+
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
+
       if (!user) {
         history.push("/login");
       }
     });
-  }, [history]);
+    if(searchText){
+      let data = products.filter(function (product) {
+        return product.ProductName.toLocaleLowerCase().includes(searchText.toLocaleLowerCase());
+      });
+
+      setDisplayList(data);
+    }
+    else{
+      setDisplayList(products);
+    }
+  }, [history,searchText]);
 
   // const data = useContext(CartContext);
-  // console.log(data);
+   console.log(user);
   const { dispatch } = useContext(CartContext);
 
   return (
-    <div className="product-pg">
-      {products.length !== 0 && <p className="products">PRODUCTS</p>}
+    <div className="product-pg ">
+      {products.length !== 0 && <div className=" search d-flex justify-content-between align-items-center pr-4"><p className="products">PRODUCTS</p>
+      <input type="text" className="search-text" 
+      placeholder="Search by product name" onChange={(e)=>setSearchText(e.target.value)}/>
+      </div>}
       <div className="products-container">
-        {products.length === 0 && (
-          <div>slow internet...no products to display</div>
+        {displayList.length === 0 && (
+          <div>No products to display</div>
         )}
-        {products.map((product) => (
+        {displayList.map((product) => (
           <div className="product-card" key={product.ProductID}>
             <div className="product-img">
               <img src={product.ProductImg} alt="not found" />

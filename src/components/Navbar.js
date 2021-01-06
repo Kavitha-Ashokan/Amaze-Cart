@@ -28,18 +28,23 @@ export const Navbar = ({ user, history }) => {
 
       {!isEmpty(user) && (
         <div className="rightside">
-          <span>
-            <Link to="/products" className="user-name navlink">
-              {user}
-            </Link>
-          </span>
-          <span>
-            <Link to="cartproducts">
-              <Icon icon={cart} className="cart-icon"/>
-            </Link>
-          </span>
-          <div className="relative">
-            <span className="no-of-products">{totalQty}</span>
+          <div className="cart-user">
+            <span className="mr-2">
+              <Link to="/products" className="user-name navlink">
+                {user}
+              </Link>
+            </span>
+            <span className="mb-3">
+              <Link to="cartproducts">
+                <Icon
+                  width="20px"
+                  height="20px"
+                  icon={cart}
+                  className="cart-img"
+                />
+                <span className="no-of-products">{totalQty}</span>
+              </Link>
+            </span>
           </div>
           <span>
             <button className="logout-btn" onClick={logout}>
