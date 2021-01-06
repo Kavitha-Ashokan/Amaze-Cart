@@ -1,50 +1,62 @@
-import React, { useContext, useEffect,useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ProductsContext } from "../global/ProductContext";
 import { CartContext } from "../global/CartContext";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import Button from "@material-ui/core/Button";
 //import SearchIcon from '@material-ui/icons/Search';
 import { auth } from "../config/config";
+import { Link } from "react-router-dom";
 
 export const Products = ({ user, history }) => {
   const { products } = useContext(ProductsContext);
-  const [searchText,setSearchText] = useState("");
-  const [displayList,setDisplayList] = useState(products);
-
+  const [searchText, setSearchText] = useState("");
+  const [displayList, setDisplayList] = useState(products);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-
       if (!user) {
         history.push("/login");
       }
     });
-    if(searchText){
+    if (searchText) {
       let data = products.filter(function (product) {
-        return product.ProductName.toLocaleLowerCase().includes(searchText.toLocaleLowerCase());
+        return product.ProductName.toLocaleLowerCase().includes(
+          searchText.toLocaleLowerCase()
+        );
       });
 
       setDisplayList(data);
-    }
-    else{
+    } else {
       setDisplayList(products);
     }
-  }, [history,searchText]);
+  }, [history, searchText]);
 
   // const data = useContext(CartContext);
-   console.log(user);
+  console.log(user);
   const { dispatch } = useContext(CartContext);
 
   return (
     <div className="product-pg ">
-      {products.length !== 0 && <div className=" search d-flex justify-content-between align-items-center pr-4"><p className="products">PRODUCTS</p>
-      <input type="text" className="search-text" 
-      placeholder="Search by product name" onChange={(e)=>setSearchText(e.target.value)}/>
-      </div>}
+      {products.length !== 0 && (
+        <div className=" search d-flex justify-content-between align-items-center pr-4">
+          <p className="products">PRODUCTS</p>
+          <div>
+            <input
+              type="text"
+              className="search-text"
+              placeholder="Search by product name"
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+            {user==='admin1'&&
+            <Link to="/addproducts">
+              <button className="logout-btn">ADD PRODUCTS</button>
+            </Link>}
+          </div>
+        </div>
+      )}
+
       <div className="products-container">
-        {displayList.length === 0 && (
-          <div>No products to display</div>
-        )}
+        {displayList.length === 0 && <div>No products to display</div>}
         {displayList.map((product) => (
           <div className="product-card" key={product.ProductID}>
             <div className="product-img">
@@ -53,12 +65,12 @@ export const Products = ({ user, history }) => {
             <div className="product-name">{product.ProductName}</div>
             <div className="product-price">Rs {product.ProductPrice}.00</div>
             <Button
-            id="addcart"
+              id="addcart"
               className="addcart-btn"
               variant="contained"
               color="primary"
               size="small"
-              startIcon={<AddShoppingCartIcon/>}
+              startIcon={<AddShoppingCartIcon />}
               onClick={() => {
                 dispatch({
                   type: "ADD_TO_CART",

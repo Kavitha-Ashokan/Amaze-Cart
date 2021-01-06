@@ -21,7 +21,7 @@ export const Navbar = ({ user, history }) => {
     <div className="navbox">
       <Link to="/products" className="nav-header navlink">
         <div className="leftside">
-          <img src={logo} alt="" />
+          <img className="logo" src={logo} alt="" />
         </div>
         <h1 className="navbox-head">Amaze Cart</h1>
       </Link>
@@ -47,6 +47,11 @@ export const Navbar = ({ user, history }) => {
             </span>
           </div>
           <span>
+          <Link to="cartproducts">
+          <button className="logout-btn">
+              MY CART
+            </button>
+            </Link>
             <button className="logout-btn" onClick={logout}>
               LOGOUT
             </button>

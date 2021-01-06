@@ -91,7 +91,7 @@ export const CheckOut = ({ history }) => {
               Return to HOME
             </Link>
             <div>
-          <img src={thanks} alt="not found" />
+          <img className="thank-img" src={thanks} alt="not found" />
         </div>
           </div>
         )}

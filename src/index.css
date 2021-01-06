@@ -29,7 +29,8 @@ body {
   padding: 20px;
   font-size: 14px;
   font-weight: 600;
- background: white
+ background: white;
+ min-height: 747px;
 }
 
 .cart-container .cart-card {
@@ -204,7 +205,7 @@ h2 {
   justify-content: center;
   background-image: url("image.jpg");
   margin: 0px !important;
-  height: 88.5vh;
+  height: 82.5vh;                               
 }
 
 .login-inner {
@@ -270,4 +271,29 @@ h2 {
   color: #f57224;
   font-size: 16px;
   font-weight: 600;
+}
+.footer-align{
+  background-color:rgb(247, 207, 133);
+  padding:10px;
+
+}
+.footer-contact {
+  color: white;
+  font-family: "Times New Roman", Times, serif;
+  letter-spacing: 3px;
+}
+.footer-site{
+  color: white;
+  font-family: "Times New Roman", Times, serif;
+  letter-spacing: 1.5px;
+}
+.login{
+  background-color:rgb(94, 92, 92) !important;
+  padding:10px;
+}
+.footer-align h6{
+  color:black !important;
+}
+.addproducts-page{
+  height:82vh;
 }
