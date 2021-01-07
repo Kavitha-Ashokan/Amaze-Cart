@@ -30,28 +30,30 @@ export const Navbar = ({ user, history }) => {
         <div className="rightside">
           <div className="cart-user">
             <span className="mr-2">
-              <Link to="/products" className="user-name navlink">
+              <p className="user-name navlink mb-0">
                 {user}
-              </Link>
+              </p>
             </span>
-            <span className="mb-3">
-              <Link to="cartproducts">
-                <Icon
-                  width="20px"
-                  height="20px"
-                  icon={cart}
-                  className="cart-img"
-                />
-                <span className="no-of-products">{totalQty}</span>
-              </Link>
-            </span>
+            {user !== "admin1" && (
+              <span className="mb-3">
+                <Link to="cartproducts">
+                  <Icon
+                    width="20px"
+                    height="20px"
+                    icon={cart}
+                    className="cart-img"
+                  />
+                  <span className="no-of-products">{totalQty}</span>
+                </Link>
+              </span>
+            )}
           </div>
           <span>
-          <Link to="cartproducts">
-          <button className="logout-btn">
-              MY CART
-            </button>
-            </Link>
+            {user !== "admin1" && (
+              <Link to="cartproducts">
+                <button className="logout-btn">MY CART</button>
+              </Link>
+            )}
             <button className="logout-btn" onClick={logout}>
               LOGOUT
             </button>

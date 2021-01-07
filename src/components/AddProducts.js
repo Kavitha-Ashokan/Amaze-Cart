@@ -81,8 +81,7 @@ const AddProducts = ({ user }) => {
   return (
     <div className="container addproducts-page">
       <br />
-      <h2>ADD PRODUCTS</h2>
-      <hr />
+      <h2 className="products">ADD PRODUCTS</h2>
       <form autoComplete="off" className="form-group" onSubmit={addProducts}>
         <TextField
           type="text"
