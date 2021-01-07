@@ -120,7 +120,7 @@ export const CheckOut = ({ history }) => {
             />
             <br />
             <TextField
-              type="text"
+              type="number"
               htmlFor="product-name"
               label="Phone Number"
               variant="outlined"

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { auth } from "../config/config";
 import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
+import { DesktopWindows } from "@material-ui/icons";
 
 export const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -18,6 +19,7 @@ export const Login = (props) => {
         setPassword("");
         setError("");
         props.history.push("/products");
+        window.location.reload(false);
       })
       .catch((err) => setError(err.message));
   };
