@@ -8,11 +8,13 @@ export const Signup = (props) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword,setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
   // signup
   const signup = (e) => {
     e.preventDefault();
+    if(password===confirmPassword){
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((cred) => {
@@ -33,6 +35,10 @@ export const Signup = (props) => {
           .catch((err) => setError(err.message));
       })
       .catch((err) => setError(err.message));
+    }
+    else{
+      alert("Please check password correctly");
+    }
   };
 
   return (
@@ -73,6 +79,18 @@ export const Signup = (props) => {
             variant="outlined"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            className="form-control"
+            required
+          />
+          <p></p>
+          <br></br>
+           <TextField
+            type="password"
+            id="outlined-basic"
+            label="Confirm Password"
+            variant="outlined"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={confirmPassword}
             className="form-control"
             required
           />
