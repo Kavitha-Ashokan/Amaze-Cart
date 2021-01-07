@@ -14,6 +14,7 @@ export const Products = ({ user, history }) => {
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
+
       if (!user) {
         history.push("/login");
       }
