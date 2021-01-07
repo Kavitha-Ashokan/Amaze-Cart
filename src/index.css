@@ -303,3 +303,6 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+.products-page{
+  min-height: 70vh;
+}
