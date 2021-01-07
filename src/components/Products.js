@@ -14,7 +14,6 @@ export const Products = ({ user, history }) => {
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-
       if (!user) {
         history.push("/login");
       }
@@ -40,51 +39,61 @@ export const Products = ({ user, history }) => {
     <div className="product-pg ">
       {products.length !== 0 && (
         <div className=" search d-flex justify-content-between align-items-center pr-4">
-          <p className="products">PRODUCTS</p>
+          <p className="products">{user === "admin1" && "ADD"} PRODUCTS</p>
           <div>
-            <input
-              type="text"
-              className="search-text"
-              placeholder="Search by product name"
-              onChange={(e) => setSearchText(e.target.value)}
-            />
-            {user==='admin1'&&
-            <Link to="/addproducts">
-              <button className="logout-btn">ADD PRODUCTS</button>
-            </Link>}
+            {user !== "admin1" && (
+              <input
+                type="text"
+                className="search-text"
+                placeholder="Search by product name"
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+            )}
           </div>
         </div>
       )}
-
-      <div className="products-container">
-        {displayList.length === 0 && <div>No products to display</div>}
-        {displayList.map((product) => (
-          <div className="product-card" key={product.ProductID}>
-            <div className="product-img">
-              <img src={product.ProductImg} alt="not found" />
-            </div>
-            <div className="product-name">{product.ProductName}</div>
-            <div className="product-price">Rs {product.ProductPrice}.00</div>
-            <Button
-              id="addcart"
-              className="addcart-btn"
-              variant="contained"
-              color="primary"
-              size="small"
-              startIcon={<AddShoppingCartIcon />}
-              onClick={() => {
-                dispatch({
-                  type: "ADD_TO_CART",
-                  id: product.ProductID,
-                  product,
-                });
-              }}
-              alignSelf="flex-end"
-            >
-              Add to cart
-            </Button>
+      <div className="products-page">
+        {user === "admin1" && (
+          <center>
+          <Link to="/addproducts">
+            <button className="logout-btn btn-addproducts">ADD PRODUCTS</button>
+          </Link>
+          </center>
+        )}
+        {user !== "admin1" && (
+          <div className="products-container">
+            {displayList.length === 0 && <div>No products to display</div>}
+            {displayList.map((product) => (
+              <div className="product-card" key={product.ProductID}>
+                <div className="product-img">
+                  <img src={product.ProductImg} alt="not found" />
+                </div>
+                <div className="product-name">{product.ProductName}</div>
+                <div className="product-price">
+                  Rs {product.ProductPrice}.00
+                </div>
+                <Button
+                  id="addcart"
+                  className="addcart-btn"
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  startIcon={<AddShoppingCartIcon />}
+                  onClick={() => {
+                    dispatch({
+                      type: "ADD_TO_CART",
+                      id: product.ProductID,
+                      product,
+                    });
+                  }}
+                  alignSelf="flex-end"
+                >
+                  Add to cart
+                </Button>
+              </div>
+            ))}
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

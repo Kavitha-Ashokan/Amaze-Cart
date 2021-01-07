@@ -5,7 +5,6 @@ import { ic_add } from "react-icons-kit/md/ic_add";
 import { ic_remove } from "react-icons-kit/md/ic_remove";
 import { iosTrashOutline } from "react-icons-kit/ionicons/iosTrashOutline";
 import { Link } from "react-router-dom";
-// import { useHistory } from "react-router-dom";
 import { auth } from "../config/config";
 
 export const Cart = ({ user, history }) => {
