@@ -7,3 +7,6 @@ step1 : npm i
 
 Step for starting application :
 step2 : npm start
+
+Live Demo :
+https://amaze-cart.herokuapp.com/
