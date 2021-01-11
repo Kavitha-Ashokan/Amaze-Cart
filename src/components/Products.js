@@ -3,7 +3,6 @@ import { ProductsContext } from "../global/ProductContext";
 import { CartContext } from "../global/CartContext";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import Button from "@material-ui/core/Button";
-//import SearchIcon from '@material-ui/icons/Search';
 import { auth } from "../config/config";
 import { Link } from "react-router-dom";
 
